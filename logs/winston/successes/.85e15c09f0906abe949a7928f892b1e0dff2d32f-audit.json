@@ -1,0 +1,40 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/successes/.85e15c09f0906abe949a7928f892b1e0dff2d32f-audit.json",
+    "files": [
+        {
+            "date": 1691506621958,
+            "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/successes/phu-2023-08-08-20-success.log",
+            "hash": "702c89f7bd42c4462d5e54e0520db9aee3adcf6f428bc254198d8530861641db"
+        },
+        {
+            "date": 1691507376989,
+            "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/successes/phu-2023-08-08-21-success.log",
+            "hash": "d6597338614da02a6fd5ff0b258ea1b16f4274e7716298db16894f474b65aac2"
+        },
+        {
+            "date": 1691510847443,
+            "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/successes/phu-2023-08-08-22-success.log",
+            "hash": "a79c9089e85e7845c94fee85f955aea24a40d8a21791b80f9df071a9da392be0"
+        },
+        {
+            "date": 1691592313989,
+            "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/successes/phu-2023-09-08-20-success.log",
+            "hash": "d2287f494f37a4286198aadd7b97821247c44eb0d783a91e3221f00c51211f76"
+        },
+        {
+            "date": 1691593298437,
+            "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/successes/phu-2023-09-08-21-success.log",
+            "hash": "2acbe5de31d8f1136c2ae2cfcc839852df1a5f4ba458e5bb62950cd11fe1ef80"
+        },
+        {
+            "date": 1691596853903,
+            "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/successes/phu-2023-09-08-22-success.log",
+            "hash": "59720679214d2b266c566afd488846c0fb55382860dee9c674bc1ee36a7b677e"
+        }
+    ],
+    "hashType": "sha256"
+}
