@@ -12,6 +12,8 @@ router.post(
     AcademicSemeterController.insertIntoDB
 )
 
+router.patch('/:id', AcademicSemeterController.updateOneInDB);
 
+router.delete('/:id', AcademicSemeterController.deleteByIdFromDB);
 
 export const AcademicSemeterRoutes = router;
