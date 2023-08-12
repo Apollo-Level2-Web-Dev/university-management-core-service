@@ -15,15 +15,4 @@ router.post(
     StudentController.insertIntoDB
 );
 
-router.patch(
-    '/:id',
-    validateRequest(StudentValidation.update),
-    StudentController.updateOneInDB
-);
-
-router.delete(
-    '/:id',
-    StudentController.deleteByIdFromDB
-);
-
 export const studentRoutes = router;
