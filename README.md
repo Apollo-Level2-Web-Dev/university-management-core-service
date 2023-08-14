@@ -7,4 +7,6 @@
 [University Management Core Service Starter](https://github.com/Apollo-Level2-Web-Dev/university-management-core-service-starter)
 
 ### ER Diagram
-<img src="https://i.ibb.co/Ln2FttV/university-management-core-service-module-1.png" alt="ER Diagram"> </img>
+[ERD of Core Service](https://drive.google.com/file/d/1roNuLqmUbvJ9AaAr07dyq1Vww61b8111/view?usp=sharing)
+
+- [API Documentation](https://documenter.getpostman.com/view/26694209/2s9Xy5NrFU)
