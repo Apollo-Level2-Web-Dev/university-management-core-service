@@ -5,7 +5,8 @@ import { paginationHelpers } from "../../../helpers/paginationHelper";
 import { IGenericResponse } from "../../../interfaces/common";
 import { IPaginationOptions } from "../../../interfaces/pagination";
 import prisma from "../../../shared/prisma";
-import { ICourseCreateData, ICourseFilterRequest } from "./corse.interface";
+import { asyncForEach } from "../../../shared/utils";
+import { ICourseCreateData, ICourseFilterRequest, IPrerequisiteCourseRequest } from "./corse.interface";
 import { courseSearchableFields } from "./course.constants";
 
 const insertIntoDB = async (data: ICourseCreateData): Promise<any> => {
@@ -21,15 +22,18 @@ const insertIntoDB = async (data: ICourseCreateData): Promise<any> => {
         }
 
         if (preRequisiteCourses && preRequisiteCourses.length > 0) {
-            for (let index = 0; index < preRequisiteCourses.length; index++) {
-                const createPrerequisite = await transactionClient.courseToPrerequisite.create({
-                    data: {
-                        courseId: result.id,
-                        preRequisiteId: preRequisiteCourses[index].courseId
-                    }
-                })
-                console.log(createPrerequisite)
-            }
+            await asyncForEach(
+                preRequisiteCourses,
+                async (preRequisiteCourse: IPrerequisiteCourseRequest) => {
+                    const createPrerequisite = await transactionClient.courseToPrerequisite.create({
+                        data: {
+                            courseId: result.id,
+                            preRequisiteId: preRequisiteCourse.courseId
+                        }
+                    })
+                    console.log(createPrerequisite)
+                }
+            )
         }
         return result;
     })
@@ -152,7 +156,6 @@ const getByIdFromDB = async (id: string): Promise<Course | null> => {
 };
 
 
-/// I intend to explore the update course functionalities in the upcoming module.
 const updateOneInDB = async (
     id: string,
     payload: ICourseCreateData
@@ -175,13 +178,64 @@ const updateOneInDB = async (
             const deletePrerequisite = preRequisiteCourses.filter(
                 (coursePrerequisite) => coursePrerequisite.courseId && coursePrerequisite.isDeleted
             )
-            console.log(deletePrerequisite)
+
+            const newPrerequisite = preRequisiteCourses.filter(
+                (coursePrerequisite) => coursePrerequisite.courseId && !coursePrerequisite.isDeleted
+            )
+
+            await asyncForEach(
+                deletePrerequisite,
+                async (deletePreCourse: IPrerequisiteCourseRequest) => {
+                    await transactionClient.courseToPrerequisite.deleteMany({
+                        where: {
+                            AND: [
+                                {
+                                    courseId: id
+                                },
+                                {
+                                    preRequisiteId: deletePreCourse.courseId
+                                }
+                            ]
+                        }
+                    })
+                }
+            )
+
+            await asyncForEach(
+                newPrerequisite,
+                async (insertPrerequisite: IPrerequisiteCourseRequest) => {
+                    await transactionClient.courseToPrerequisite.create({
+                        data: {
+                            courseId: id,
+                            preRequisiteId: insertPrerequisite.courseId
+                        }
+                    })
+                }
+            )
         }
 
+        return result;
     })
 
+    const responseData = await prisma.course.findUnique({
+        where: {
+            id
+        },
+        include: {
+            preRequisite: {
+                include: {
+                    preRequisite: true
+                }
+            },
+            preRequisiteFor: {
+                include: {
+                    course: true
+                }
+            }
+        }
+    })
 
-
+    return responseData
 }
 
 const deleteByIdFromDB = async (id: string): Promise<Course> => {

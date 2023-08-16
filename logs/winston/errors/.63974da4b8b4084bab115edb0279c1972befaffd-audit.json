@@ -99,6 +99,11 @@
             "date": 1692201825479,
             "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/errors/phu-2023-16-08-22-error.log",
             "hash": "bf5b15aa1d78826ca6587919afe5623d5fa3a6532d7f5ec197ba087f6333fb38"
+        },
+        {
+            "date": 1692205761795,
+            "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/errors/phu-2023-16-08-23-error.log",
+            "hash": "b02318e1a3285f2d98d735b9b94d620b785537eba13bcc1c93a6b43a0fe2f95c"
         }
     ],
     "hashType": "sha256"
