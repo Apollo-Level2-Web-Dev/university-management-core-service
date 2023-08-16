@@ -153,8 +153,36 @@ const getByIdFromDB = async (id: string): Promise<Course | null> => {
 
 
 /// I intend to explore the update course functionalities in the upcoming module.
+const updateOneInDB = async (
+    id: string,
+    payload: ICourseCreateData
+): Promise<Course | null> => {
+    const { preRequisiteCourses, ...courseData } = payload;
+
+    await prisma.$transaction(async (transactionClient) => {
+        const result = await transactionClient.course.update({
+            where: {
+                id
+            },
+            data: courseData
+        })
+
+        if (!result) {
+            throw new ApiError(httpStatus.BAD_REQUEST, "Unable to update course")
+        }
+
+        if (preRequisiteCourses && preRequisiteCourses.length > 0) {
+            const deletePrerequisite = preRequisiteCourses.filter(
+                (coursePrerequisite) => coursePrerequisite.courseId && coursePrerequisite.isDeleted
+            )
+            console.log(deletePrerequisite)
+        }
+
+    })
 
 
+
+}
 
 const deleteByIdFromDB = async (id: string): Promise<Course> => {
     await prisma.courseToPrerequisite.deleteMany({
@@ -183,5 +211,6 @@ export const CourseService = {
     insertIntoDB,
     getAllFromDB,
     getByIdFromDB,
-    deleteByIdFromDB
+    deleteByIdFromDB,
+    updateOneInDB
 }
