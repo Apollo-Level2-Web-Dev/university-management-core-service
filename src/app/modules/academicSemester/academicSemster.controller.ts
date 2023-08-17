@@ -42,6 +42,7 @@ const getDataById = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+
 export const AcademicSemeterController = {
     insertIntoDB,
     getAllFromDB,

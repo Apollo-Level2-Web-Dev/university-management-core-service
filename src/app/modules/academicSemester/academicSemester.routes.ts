@@ -12,6 +12,4 @@ router.post(
     AcademicSemeterController.insertIntoDB
 )
 
-
-
 export const AcademicSemeterRoutes = router;
