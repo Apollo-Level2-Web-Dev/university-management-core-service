@@ -2,7 +2,7 @@
 
 ## Resources
 
-## Module-1:
+## Module-36:
 ### Stater Repository: 
 [University Management Core Service Starter](https://github.com/Apollo-Level2-Web-Dev/university-management-core-service-starter)
 
