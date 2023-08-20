@@ -16,6 +16,7 @@ router.post(
     CourseController.insertIntoDB
 );
 
+/// I intend to explore the update course functionalities in the upcoming module.
 //   router.patch(
 //     '/:id',
 //     validateRequest(CourseValidation.update),
