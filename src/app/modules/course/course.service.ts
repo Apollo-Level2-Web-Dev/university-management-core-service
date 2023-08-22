@@ -12,10 +12,15 @@ import { courseSearchableFields } from "./course.constants";
 const insertIntoDB = async (data: ICourseCreateData): Promise<any> => {
     const { preRequisiteCourses, ...courseData } = data;
 
+    console.log("course data", courseData);
+    console.log("pre requisite course data: ", preRequisiteCourses)
+
     const newCourse = await prisma.$transaction(async (transactionClient) => {
         const result = await transactionClient.course.create({
             data: courseData
         })
+
+
 
         if (!result) {
             throw new ApiError(httpStatus.BAD_REQUEST, "Unable to create course")
