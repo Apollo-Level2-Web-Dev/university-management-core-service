@@ -119,43 +119,7 @@ const getByIdFromDB = async (id: string): Promise<SemesterRegistration | null> =
     return result;
 };
 
-const updateOneInDB = async (
-    id: string,
-    payload: Partial<SemesterRegistration>
-): Promise<SemesterRegistration> => {
-    const semesterRegistration = await getByIdFromDB(id);
 
-    if (!semesterRegistration) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Semester Registration not found');
-    }
-
-    if (
-        payload.status &&
-        semesterRegistration.status === SemesterRegistrationStatus.UPCOMING &&
-        payload.status !== SemesterRegistrationStatus.ONGOING
-    ) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Can only move from UPCOMING to ONGOING');
-    }
-
-    if (
-        payload.status &&
-        semesterRegistration.status === SemesterRegistrationStatus.ONGOING &&
-        payload.status !== SemesterRegistrationStatus.ENDED
-    ) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Can only move from ONGOING to ENDED');
-    }
-
-    const result = await prisma.semesterRegistration.update({
-        where: {
-            id
-        },
-        data: payload,
-        include: {
-            academicSemester: true
-        }
-    });
-    return result;
-};
 
 const deleteByIdFromDB = async (id: string): Promise<SemesterRegistration> => {
     const result = await prisma.semesterRegistration.delete({
@@ -173,6 +137,5 @@ export const SemesterRegistrationService = {
     insertIntoDB,
     getAllFromDB,
     getByIdFromDB,
-    updateOneInDB,
     deleteByIdFromDB
 }
