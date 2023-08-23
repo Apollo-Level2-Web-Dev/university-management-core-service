@@ -26,11 +26,9 @@ const update = z.object({
         startDate: z.string().optional(),
         endDate: z.string().optional(),
         academicSemesterId: z.string().optional(),
-        status: z
-            .enum([...Object.values(SemesterRegistrationStatus)] as [string, ...string[]], {})
-            .optional(),
         minCredit: z.number().optional(),
-        maxCredit: z.number().optional()
+        maxCredit: z.number().optional(),
+        status: z.enum([...Object.values(SemesterRegistrationStatus)] as [string, ...string[]], {}).optional()
     })
 });
 
