@@ -9,6 +9,7 @@ import { OfferedCourseClassScheduleUtils } from "./offeredCourseClassSchedule.ut
 
 const insertIntoDB = async (data: OfferedCourseClassSchedule): Promise<OfferedCourseClassSchedule> => {
     await OfferedCourseClassScheduleUtils.checkRoomAvailable(data)
+    await OfferedCourseClassScheduleUtils.checkFacultyAvailable(data)
 
     // existing: 12:30 - 13:30
     // new slot: 12:50 - 13:50
@@ -99,6 +100,7 @@ const getAllFromDB = async (
         data: result
     };
 };
+
 
 export const OfferedCourseClassScheduleService = {
     insertIntoDB,
