@@ -16,6 +16,7 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     const filters = pick(req.query, semesterRegistrationFilterableFields);
     const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
@@ -63,10 +64,22 @@ const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
     });
 })
 
+const startMyRegistration = catchAsync(async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    const result = await SemesterRegistrationService.startMyRegistration(user.userId)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Student SemesterRegistration started successfully',
+        data: result
+    });
+})
+
 export const SemesterRegistrationController = {
     insertIntoDB,
     getAllFromDB,
     getByIdFromDB,
     updateOneInDB,
-    deleteByIdFromDB
+    deleteByIdFromDB,
+    startMyRegistration
 }
