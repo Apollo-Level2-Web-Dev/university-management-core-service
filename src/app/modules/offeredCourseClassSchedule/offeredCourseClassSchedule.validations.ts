@@ -4,6 +4,7 @@ import { daysInWeek } from '../offeredCourseSection/offeredCourseSection.constan
 const timeStringSchema = z.string().refine(
     (time) => {
         const regex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
+        // example: 09:45, 21:30
         return regex.test(time);
     },
     {
@@ -11,6 +12,7 @@ const timeStringSchema = z.string().refine(
     }
 );
 
+/// I will discuss in next module
 const create = z
     .object({
         body: z.object({
