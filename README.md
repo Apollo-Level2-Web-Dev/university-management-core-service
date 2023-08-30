@@ -18,4 +18,7 @@
 ## Module-38
 <img src="https://i.ibb.co/B2JhHD3/module-38.png" alt="ER Diagram"> </img>
 
+## Module-38
+<img src="https://i.ibb.co/VgG8RcZ/university-management-core-service-Page-1-drawio.png" alt="ER Diagram"> </img>
+
 - [API Documentation](https://documenter.getpostman.com/view/26694209/2s9Xy5NrFU)
