@@ -16,6 +16,9 @@
 
 - [Module-39: ER Diagram](https://i.ibb.co/VgG8RcZ/university-management-core-service-Page-1-drawio.png)
 
+- [Module-39: ER Diagram](https://i.ibb.co/rsRcGb6/module-41-drawio.png)
+
+
 - **You can generate an ERD with Prisma schema using the website: https://prismaliser.app/**
 - [API Documentation](https://documenter.getpostman.com/view/26694209/2s9Xy5NrFU)
 
