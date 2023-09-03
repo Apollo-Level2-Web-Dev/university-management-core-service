@@ -5,8 +5,9 @@ import { paginationHelpers } from "../../../helpers/paginationHelper";
 import { IGenericResponse } from "../../../interfaces/common";
 import { IPaginationOptions } from "../../../interfaces/pagination";
 import prisma from "../../../shared/prisma";
+import { studentSemesterRegistrationCourseService } from "../studentSemesterRegistrationCourse/studentSemesterRegistrationCourse.service";
 import { semesterRegistrationRelationalFields, semesterRegistrationRelationalFieldsMapper, semesterRegistrationSearchableFields } from "./semesterRegistration.constants";
-import { ISemesterRegistrationFilterRequest } from "./semesterRegistration.interface";
+import { IEnrollCoursePayload, ISemesterRegistrationFilterRequest } from "./semesterRegistration.interface";
 
 const insertIntoDB = async (data: SemesterRegistration): Promise<SemesterRegistration> => {
 
@@ -230,11 +231,111 @@ const startMyRegistration = async (authUserId: string): Promise<{
     }
 }
 
+const enrollIntoCourse = async (
+    authUserId: string,
+    payload: IEnrollCoursePayload
+): Promise<{
+    message: string
+}> => {
+    return studentSemesterRegistrationCourseService.enrollIntoCourse(authUserId, payload)
+}
+
+const withdrewFromCourse = async (
+    authUserId: string,
+    payload: IEnrollCoursePayload
+): Promise<{
+    message: string
+}> => {
+    return studentSemesterRegistrationCourseService.withdrewFromCourse(authUserId, payload)
+}
+
+const confirmMyRegistration = async (authUserId: string): Promise<{ message: string }> => {
+    const semesterRegistration = await prisma.semesterRegistration.findFirst({
+        where: {
+            status: SemesterRegistrationStatus.ONGOING
+        }
+    })
+
+    // 3 - 6
+    const studentSemesterRegistration = await prisma.studentSemesterRegistration.findFirst({
+        where: {
+            semesterRegistration: {
+                id: semesterRegistration?.id
+            },
+            student: {
+                studentId: authUserId
+            }
+        }
+    })
+
+    if (!studentSemesterRegistration) {
+        throw new ApiError(httpStatus.BAD_REQUEST, "You are not recognized for this semester!")
+    }
+
+    if (studentSemesterRegistration.totalCreditsTaken === 0) {
+        throw new ApiError(httpStatus.BAD_REQUEST, "You are not enrolled in any course!")
+    }
+
+    if (
+        studentSemesterRegistration.totalCreditsTaken &&
+        semesterRegistration?.minCredit &&
+        semesterRegistration.maxCredit &&
+        (studentSemesterRegistration.totalCreditsTaken < semesterRegistration?.minCredit ||
+            studentSemesterRegistration.totalCreditsTaken > semesterRegistration?.maxCredit)
+    ) {
+        throw new ApiError(httpStatus.BAD_REQUEST, `You can take only ${semesterRegistration.minCredit} to ${semesterRegistration.maxCredit} credits`)
+    }
+
+    await prisma.studentSemesterRegistration.update({
+        where: {
+            id: studentSemesterRegistration.id
+        },
+        data: {
+            isConfirmed: true
+        }
+    })
+    return {
+        message: "Your registration is confirmed!"
+    }
+
+}
+
+const getMyRegistration = async (authUserId: string) => {
+    const semesterRegistration = await prisma.semesterRegistration.findFirst({
+        where: {
+            status: SemesterRegistrationStatus.ONGOING
+        },
+        include: {
+            academicSemester: true
+        }
+    })
+
+    const studentSemesterRegistration = await prisma.studentSemesterRegistration.findFirst({
+        where: {
+            semesterRegistration: {
+                id: semesterRegistration?.id
+            },
+            student: {
+                studentId: authUserId
+            }
+        },
+        include: {
+            student: true
+        }
+    })
+
+    return { semesterRegistration, studentSemesterRegistration }
+}
+
 export const SemesterRegistrationService = {
     insertIntoDB,
     getAllFromDB,
     getByIdFromDB,
     updateOneInDB,
     deleteByIdFromDB,
-    startMyRegistration
+    startMyRegistration,
+    enrollIntoCourse,
+    withdrewFromCourse,
+    confirmMyRegistration,
+    getMyRegistration
 }
