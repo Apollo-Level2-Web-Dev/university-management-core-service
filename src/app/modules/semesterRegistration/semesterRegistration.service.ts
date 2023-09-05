@@ -478,4 +478,5 @@ export const SemesterRegistrationService = {
     confirmMyRegistration,
     getMyRegistration,
     startNewSemester
+    //1
 }
