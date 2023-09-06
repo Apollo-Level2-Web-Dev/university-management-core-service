@@ -16,7 +16,6 @@ const insertIntoDB = async (data: any): Promise<OfferedCourseSection> => {
         }
     })
 
-    console.log(isExistOfferedCourse)
     console.log("data: ", data)
 
     if (!isExistOfferedCourse) {
@@ -27,7 +26,7 @@ const insertIntoDB = async (data: any): Promise<OfferedCourseSection> => {
 
     const result = await prisma.offeredCourseSection.create({
         data
-    })
+    });
 
     return result;
 }
