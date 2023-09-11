@@ -84,8 +84,32 @@ const removeCourses = catchAsync(async (req: Request, res: Response) => {
         message: 'Course faculty deleted successfully',
         data: result
     });
-})
+});
 
+const myCourses = catchAsync(async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    const filter = pick(req.query, ['academicSemesterId', 'courseId'])
+    const result = await FacultyService.myCourses(user, filter);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'My courses data fetched successfully!',
+        data: result
+    });
+});
+const getMyCourseStudents = catchAsync(async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    const filters = pick(req.query, ['academicSemesterId', 'courseId', 'offeredCourseSectionId']);
+    const options = pick(req.query, ['limit', 'page']);
+    const result = await FacultyService.getMyCourseStudents(filters, options, user);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Faculty course students fetched successfully',
+        meta: result.meta,
+        data: result.data
+    });
+});
 
 export const FacultyController = {
     insertIntoDB,
@@ -94,5 +118,7 @@ export const FacultyController = {
     updateOneInDB,
     deleteByIdFromDB,
     assignCourses,
-    removeCourses
+    removeCourses,
+    myCourses,
+    getMyCourseStudents
 };
