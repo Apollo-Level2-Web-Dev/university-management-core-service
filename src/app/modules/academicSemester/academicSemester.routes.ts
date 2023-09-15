@@ -11,8 +11,9 @@ router.get('/:id', AcademicSemeterController.getDataById)
 router.post(
     '/',
     validateRequest(AcademicSemesterValidation.create),
+    auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
     AcademicSemeterController.insertIntoDB
-)
+);
 
 router.patch(
     '/:id',
