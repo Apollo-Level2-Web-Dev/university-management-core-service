@@ -6,21 +6,6 @@
     "auditLog": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/errors/.63974da4b8b4084bab115edb0279c1972befaffd-audit.json",
     "files": [
         {
-            "date": 1693739626491,
-            "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/errors/phu-2023-03-09-17-error.log",
-            "hash": "856d8b5303bcbb4bf58580fc2b4847de9342aac988a292b40203bcec349c8bf7"
-        },
-        {
-            "date": 1693742425355,
-            "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/errors/phu-2023-03-09-18-error.log",
-            "hash": "ab474fa4a4751e782bad15b5d11099f2c62bbc2a082040462024201855fc1f7a"
-        },
-        {
-            "date": 1693746963345,
-            "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/errors/phu-2023-03-09-19-error.log",
-            "hash": "5d918355f7611511be964f4374ca07d684690b609d72b74f8ad8aaf916e9909f"
-        },
-        {
             "date": 1693830280445,
             "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/errors/phu-2023-04-09-18-error.log",
             "hash": "4f7214a0fde2d8a74d4559e0c42d552a4c13ccfd858d3fe709a450834d40c05e"
@@ -144,6 +129,11 @@
             "date": 1694877423836,
             "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/errors/phu-2023-16-09-21-error.log",
             "hash": "154ccd67a31ff1c03b85458c8785b404a7d2a65384fe25fb99c5307b3982abbb"
+        },
+        {
+            "date": 1694958934751,
+            "name": "/Users/fahimahammedfiroz/level2/university-management-core-service-starter/logs/winston/errors/phu-2023-17-09-19-error.log",
+            "hash": "6ce6fd1e4e833c3a7f490cc1832d2a757d895c91e4ad1562b9bd0551e04f60f4"
         }
     ],
     "hashType": "sha256"
