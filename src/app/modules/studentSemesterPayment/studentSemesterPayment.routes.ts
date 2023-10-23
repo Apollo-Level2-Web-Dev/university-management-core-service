@@ -11,6 +11,12 @@ router.get(
     StudentSemesterPaymentController.getAllFromDB
 );
 
+router.get(
+    '/my-semester-payments',
+    auth(ENUM_USER_ROLE.STUDENT),
+    StudentSemesterPaymentController.getMySemesterPayments
+);
+
 router.post(
     '/initiate-payment',
     auth(ENUM_USER_ROLE.STUDENT),
