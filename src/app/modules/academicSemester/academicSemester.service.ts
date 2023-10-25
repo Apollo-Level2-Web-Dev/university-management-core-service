@@ -18,6 +18,8 @@ const insertIntoDB = async (academicSemesterData: AcademicSemester): Promise<Aca
         data: academicSemesterData
     });
 
+    console.log(result, "result core")
+
     if (result) {
         await RedisClient.publish(EVENT_ACADEMIC_SEMESTER_CREATED, JSON.stringify(result))
     }
